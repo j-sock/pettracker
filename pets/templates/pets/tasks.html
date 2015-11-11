@@ -1,0 +1,11 @@
+{% for t in tasks %}
+	<input type="checkbox" name="name" value="{{ t.name }}"> {{ t.name }}
+	<a href="{% url 'edit-task' pk=t.id %}"> edit</a>
+	<a href=""> delete</a>
+	<br />
+{% endfor %}
+<input type="submit" value="save tasks" />
+
+<p>
+	<a href="{% url 'add-task' %}">Add a new task</a>
+</p>

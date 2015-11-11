@@ -1,0 +1,6 @@
+<form action="{% url 'edit-task' pk=id %}" method="post">
+	{% csrf_token %}
+	{{ form }}
+	<input type="submit" value="edit_task" />
+</form>
+<a href="{% url 'tasks' pk=pet_id %}">Go back</a>
