@@ -1,11 +1,13 @@
+{% load staticfiles %}
+
 {% for t in tasks %}
-	<input type="checkbox" name="name" value="{{ t.name }}"> {{ t.name }}
+	<input type="checkbox" name="name" value="{{ t.name }}" onclick="console.log('javaaav');this.form.submit();" {% if t.done %}checked{% endif %}> {{ t.name }}
 	<a href="{% url 'edit-task' pk=t.id %}"> edit</a>
 	<a href=""> delete</a>
 	<br />
 {% endfor %}
 <input type="submit" value="save tasks" />
-
+<img src="{% static "images/test.png" %}"/>
 <p>
 	<a href="{% url 'add-task' %}">Add a new task</a>
 </p>

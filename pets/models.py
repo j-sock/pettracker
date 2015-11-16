@@ -27,8 +27,11 @@ class Task(models.Model):
 	pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
 	last_done = models.DateField(null=True)
 
-	def done_today(self):
-		return last_done == date.today()
+	def do(self):
+		self.last_done = date.today()
+
+	def is_done(self):
+		return self.last_done == date.today()
 
 	def __unicode__(self):
 		return '{}'.format(self.name)
