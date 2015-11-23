@@ -1,0 +1,57 @@
+@font-face {
+    font-family: 'besom';
+    src: url('../fonts/besom/besom.eot');
+    src: url('../fonts/besom/besom.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/besom/besom.woff2') format('woff2'),
+         url('../fonts/besom/besom.woff') format('woff'),
+         url('../fonts/besom/besom.ttf') format('truetype'),
+         url('../fonts/besom/besom.svg#besomregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'stellar';
+    src: url('../fonts/stellar/stellar-light-webfont.eot');
+    src: url('../fonts/stellar/stellar-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/stellar/stellar-light-webfont.woff2') format('woff2'),
+         url('../fonts/stellar/stellar-light-webfont.woff') format('woff'),
+         url('../fonts/stellar/stellar-light-webfont.ttf') format('truetype'),
+         url('../fonts/stellar/stellar-light-webfont.svg#stellarlight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'stellar';
+    src: url('../fonts/stellar/stellar-medium-webfont.eot');
+    src: url('../fonts/stellar/stellar-medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/stellar/stellar-medium-webfont.woff2') format('woff2'),
+         url('../fonts/stellar/stellar-medium-webfont.woff') format('woff'),
+         url('../fonts/stellar/stellar-medium-webfont.ttf') format('truetype'),
+         url('../fonts/stellar/stellar-medium-webfont.svg#stellarmedium') format('svg');
+    font-weight: bold;
+    font-style: bold;
+}
+
+body {
+	background-image: url("{% static "images/wood.jpg" %}");
+	padding: 30vh 15vw 30vh 15vw;
+	font-family: 'stellar';
+	font-size: 1em;
+}
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+.round {
+	border-radius: 50%;
+}
+
+.big-text {
+	font-size: 12em;
+}
+
+.medium-text {
+	font-size: 2em;
+}
