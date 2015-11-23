@@ -1,0 +1,7 @@
+*.pyc
+*.DS_Store
+db.sqlite3
+pets/media/
+pets/migrations/*
+!pets/migrations/__init__.py
+pets/static/

@@ -1,6 +1,7 @@
 Name: {{ pet.name }}<br />
+Sex: {{ pet.sex }}<br />
 Birthday: {{ pet.birthday }}<br />
-Breed: {{ pet.breed }}<br />
+Breed: {{ pet.species }}<br />
 <a href="{% url 'tasks' pk=pet.pk %}">View tasks</a><br />
 <br />
 <a href="{% url 'edit-detail' pk=pet.pk %}">Edit</a> <a href="{% url 'index' %}">Go back</a>

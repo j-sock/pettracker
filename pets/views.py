@@ -1,27 +1,20 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
 
-from .models import Pet, Task
-from .forms import PetForm , TaskForm
+import json
+
+from .models import Animal, Pet, CustomTask
+from .forms import PetForm, TaskForm, TaskCheckForm
 
 def index(request):
+	tasks = CustomTask.objects.order_by('-name')[:5]
+	return render(request, 'pets/index.html', {'tasks': tasks})
+
+def list_pets(request):
 	pets = Pet.objects.order_by('-name')
-	return render(request, 'pets/index.html', {'pets': pets})
-
-
-class IndexView(generic.ListView):
-	template_name = 'pets/index.html'
-	context_object_name = 'pets'
-
-	def get_queryset(self):
-		return Pet.objects.order_by('-name')
-
-
-class DetailView(generic.DetailView):
-	model = Pet
-	template_name = 'pets/detail.html'
+	return render(request, 'pets/list_pets.html', {'pets': pets})
 
 def get_pet(request, pk):
 	pet = Pet.objects.get(pk=pk)
@@ -29,7 +22,7 @@ def get_pet(request, pk):
 
 def add_pet(request):
 	if request.method == 'POST':
-		form = PetForm(request.POST)
+		form = PetForm(request.POST, request.FILES)
 		if form.is_valid():
 			form.save()
 			return HttpResponseRedirect('/pets/')
@@ -49,7 +42,11 @@ def edit_detail(request, pk):
 	return render(request, 'pets/edit_detail.html', {'id': pk, 'form': form})
 
 def get_tasks(request, pk):
-	tasks = Task.objects.filter(pet=pk)
+	if request.method =='POST':
+		form = TaskCheckForm(request.POST)
+		if form.is_valid():
+			form.save()
+	tasks = CustomTask.objects.filter(pet=pk)
 	return render(request, 'pets/tasks.html', {'id': pk, 'tasks': tasks})
 
 def add_task(request):
@@ -69,6 +66,14 @@ def edit_task(request, pk):
 			form.save()
 			return HttpResponseRedirect('/pets/%s/tasks' % request.POST.get('pet'))
 	else:
-		task = get_object_or_404(Task, pk=pk)
+		task = get_object_or_404(CustomTask, pk=pk)
 		form = TaskForm(instance=task)
 	return render(request, 'pets/edit_task.html', {'id': pk, 'pet_id': task.pet.pk, 'form': form})
+
+def do_task(request, pk):
+	if request.method == 'POST':
+		task = get_object_or_404(CustomTask, pk=pk)
+		task.done = request.POST.get('done') == 'true'
+		task.save()
+		return HttpResponse(json.dumps({'task_name': task.name, 'pet': task.pet.name, 'done': task.done}), content_type="application/json")
+	return HttpResponse(json.dumps({'error': 'request wasn not post'}), content_type="application/json")
