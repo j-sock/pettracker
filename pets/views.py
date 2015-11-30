@@ -14,7 +14,11 @@ def index(request):
 
 def get_human(request, pk):
 	human = Human.objects.get(pk=pk)
-	return render(request, 'pets/human.html', {'human': human})	
+	pets = Pet.objects.filter(caregivers__id=pk)
+	tasks = []
+	for pet in pets:
+		tasks += Task.objects.filter(pet__id=pet.pk)
+	return render(request, 'pets/human.html', {'human': human, 'pets': pets, 'tasks': tasks})	
 
 def list_pets(request):
 	pets = Pet.objects.order_by('-name')

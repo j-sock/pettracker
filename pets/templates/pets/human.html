@@ -1,18 +1,42 @@
+{% load staticfiles %}
+<head>
+	<link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}"></link>
+	<link rel="stylesheet" type="text/css" href="{% static "css/pet.css" %}"></link>
+	<link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}"></link>
+	<style>
+		.todo-item img {
+			width: 2vw;
+		}
+	</style>
+</head>
+
 <body>
-	<div id="content" class="medium-text">
+	<div id="layout" class="medium-text">
 		<div id="header">
 			<div id="profile-pic"><img src="/media/{{ human.icon }}" class="round" /></div>
-			<div id="title">
-				<div id="name">{{ human.name }}</div>
-				<div id="info">
-					
-				</div>
+			<div id="name">
+				{{ human.name }}
 			</div>
 		</div>
-		<div id="sidebar">
-			xxx
-		</div>
-		<div id="main">xxx
+		<div id="content">
+			<div id="sidebar">
+				<div id="pets" class="icon-list">
+					<span class="section-title">Pets</span><br/>
+					{% for p in pets %}
+						<a href="{% url 'pet' pk=p.pk %}">
+							<img src="/media/{{ p.icon }}" class="round small-icon" />
+						</a>
+					{% endfor %}
+				</div>
+			</div>
+			<div id="main">
+				<span class="section-title">To-Do</span><br/>
+				{% for t in tasks %}
+					<div class="todo-item">
+						<img src="/media/{{ t.pet.icon }}" class="round small-icon" /> {{ t.name }}<br/>
+					</div>
+				{% endfor %}
+			</div>
 		</div>
 	</div>
 </body>
