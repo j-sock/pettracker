@@ -5,6 +5,8 @@ from . import views
 urlpatterns = [
 	url(r'^$', views.index, name='index'),
 
+	url(r'^humans/(?P<pk>[0-9]+)/$', views.get_human, name='human'),
+
 	url(r'^pets/$', views.list_pets, name='list-pets'),
 	url(r'^add-pet/$', views.add_pet, name='add-pet'),
 

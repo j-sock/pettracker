@@ -1,7 +1,106 @@
-Name: {{ pet.name }}<br />
-Sex: {{ pet.sex }}<br />
-Birthday: {{ pet.birthday }}<br />
-Breed: {{ pet.species }}<br />
-<a href="{% url 'tasks' pk=pet.pk %}">View tasks</a><br />
-<br />
-<a href="{% url 'edit-detail' pk=pet.pk %}">Edit</a> <a href="{% url 'index' %}">Go back</a>
+
+{% load staticfiles %}
+<head>
+	<link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}"></link>
+	<!-- <link rel="stylesheet" type="text/css" href="{% static "css/landing.css" %}"></link> -->
+	<link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}"></link>
+	<style type="text/css">
+		#layout {
+			position: fixed;
+			top: 10vh;
+			left: 20vw;
+		}
+		#header {
+			width: 54vw;
+			height: 38vh;
+			padding: 4vh 3vw 0vh 3vw;
+			background-color: rgba(255, 255, 255, 0.8);
+		}
+		#profile-pic {
+			width: 35%;
+			float: left;
+			margin-right: 5%;
+		}
+		#profile-pic img {
+			border: 5px solid #222;
+		}
+		#title {
+			width: 60%;
+			float: left;
+			text-align: left;
+		}
+		#name {
+			font-size: 5em;
+		}
+
+		#content {
+			width: 100%;
+			height: 100%;
+			padding: 4vh 0 5vh 0;
+		}
+
+		#sidebar {
+			width: 15vw;
+			padding: 3vh 3vw 3vh 3vw;
+			margin-right: 4vw;
+			float: left;
+			/*clear: both;*/
+			background-color: rgba(255, 255, 255, 0.8);
+		}
+		#main {
+			width: 44vw;
+			/*padding: 3vh 3vw 3vh 3vw;*/
+			float: right;
+			background-color: rgba(255, 255, 255, 0.8);
+		}
+		.small-icon {
+			width: 3vw;
+			height: auto;
+		}
+		.icon-list {
+			padding-bottom: 5%;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="layout" class="medium-text">
+		<div id="header">
+			<div id="profile-pic"><img src="/media/{{ pet.icon }}" class="round" /></div>
+			<div id="title">
+				<div id="name">{{ pet.name }}</div>
+				<div id="info">
+					Breed: {{ pet.breed }}<br/>
+					Age: {{ pet.age }}<br/>
+					Sex: {{ pet.get_sex_display }}
+				</div>
+			</div>
+		</div>
+		<div id="content">
+			<div id="sidebar">
+				<div id="caregivers" class="icon-list">
+					Caregivers:<br/>
+					{% for c in pet.caregivers.all %}
+						<a href="{% url 'human' pk=c.pk %}">
+							<img src="/media/{{ c.icon }}" class="round small-icon" />
+						</a>
+					{% endfor %}
+				</div>
+				<div id="friends" class="icon-list">
+					Friends:<br/>
+					{% for f in pet.friends.all %}
+						<a href="{% url 'pet' pk=f.pk %}">
+							<img src="/media/{{ f.icon }}" class="round small-icon" />
+						</a>
+					{% endfor %}
+				</div>
+			</div>
+			<div id="main">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+			</div>
+		</div>
+
+		<!-- <a href="{% url 'tasks' pk=pet.pk %}">View tasks</a><br />
+		<br />
+		<a href="{% url 'edit-detail' pk=pet.pk %}">Edit</a> <a href="{% url 'index' %}">Go back</a> -->
+	</div>
+</body>

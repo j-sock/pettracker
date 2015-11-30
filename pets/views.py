@@ -5,12 +5,16 @@ from django.views import generic
 
 import json
 
-from .models import Animal, Pet, CustomTask
-from .forms import PetForm, TaskForm, TaskCheckForm
+from .models import Animal, Human, Pet, Task
+from .forms import PetForm, HumanForm, TaskForm, TaskCheckForm
 
 def index(request):
-	tasks = CustomTask.objects.order_by('-name')[:5]
+	tasks = Task.objects.order_by('-name')[:5]
 	return render(request, 'pets/index.html', {'tasks': tasks})
+
+def get_human(request, pk):
+	human = Human.objects.get(pk=pk)
+	return render(request, 'pets/human.html', {'human': human})	
 
 def list_pets(request):
 	pets = Pet.objects.order_by('-name')
@@ -46,7 +50,7 @@ def get_tasks(request, pk):
 		form = TaskCheckForm(request.POST)
 		if form.is_valid():
 			form.save()
-	tasks = CustomTask.objects.filter(pet=pk)
+	tasks = Task.objects.filter(pet=pk)
 	return render(request, 'pets/tasks.html', {'id': pk, 'tasks': tasks})
 
 def add_task(request):
@@ -66,13 +70,13 @@ def edit_task(request, pk):
 			form.save()
 			return HttpResponseRedirect('/pets/%s/tasks' % request.POST.get('pet'))
 	else:
-		task = get_object_or_404(CustomTask, pk=pk)
+		task = get_object_or_404(Task, pk=pk)
 		form = TaskForm(instance=task)
 	return render(request, 'pets/edit_task.html', {'id': pk, 'pet_id': task.pet.pk, 'form': form})
 
 def do_task(request, pk):
 	if request.method == 'POST':
-		task = get_object_or_404(CustomTask, pk=pk)
+		task = get_object_or_404(Task, pk=pk)
 		task.done = request.POST.get('done') == 'true'
 		task.save()
 		return HttpResponse(json.dumps({'task_name': task.name, 'pet': task.pet.name, 'done': task.done}), content_type="application/json")
