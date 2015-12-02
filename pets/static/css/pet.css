@@ -19,9 +19,11 @@ body {
 	float: left;
 	margin-right: 5%;
 }
+
 #profile-pic img {
 	border: 5px solid #fee;
 }
+
 #name {
 	margin-top: 4vh;
 	width: 60%;
@@ -29,7 +31,8 @@ body {
 	text-align: left;
 	color: #fee;
 	font-size: 13.5em;
-	font-family: 'besom';
+	font-family: 'homizio';
+	font-weight: bold;
 }
 
 #content {
@@ -43,6 +46,7 @@ body {
 	padding: 3vh 2.5vw 3vh 2.5vw;
 	margin-right: 5vw;
 	float: left;
+	clear: left;
 	background-color: rgba(255, 255, 255, 0.8);
 }
 #main {
