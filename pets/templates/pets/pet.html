@@ -4,66 +4,70 @@
 	<link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}"></link>
 	<link rel="stylesheet" type="text/css" href="{% static "css/pet.css" %}"></link>
 	<link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}"></link>
-
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-
 </head>
 
 <body>
-	<div id="layout" class="medium-text">
-		<div id="header">
-			<div id="profile-pic"><img src="/media/{{ pet.icon }}" class="round" /></div>
-			<div id="name">
-				{{ pet.name }}
+	<div class="size">
+		<div class="background">
+			<div id="logout" class="small-text">
+				<a href="{% url 'tasks' %}"> view tasks</a><br/>
+				<a href="{% url 'logout' %}">logout </a><br/>
+				<a href="{% url 'index' %}">home </a>
 			</div>
-		</div>
-		<div id="content">
-			<div id="sidebar">
-				<div id="info" class="icon-list">
-					<span class="section-title">Info</span><br/>
-					<span class="bold">Species:</span> {{ pet.animal }}<br/>
-					<span class="bold">Breed:</span> {{ pet.breed }}<br/>
-					<span class="bold">Age:</span> {{ pet.age }}<br/>
+			<div class="wrapper">
+				<div class="title">
+					<img src="/media/{{ pet.icon }}" class="big-image round" />
+					<span class="small-text gray-text">hello, my name is</span>
+					<span class="giant-text gray-text text-border"> {{ pet.name }}</span>
 				</div>
-				<div id="caregivers" class="icon-list">
-					<span class="section-title">Caregivers</span><br/>
-					{% for c in pet.caregivers.all %}
-						<a href="{% url 'human' pk=c.pk %}">
-							<img src="/media/{{ c.icon }}" class="round small-icon" />
-						</a>
-					{% endfor %}
+				<div class="content">
+					<div class="sidebar light-background">
+						<div class="small-text gray-text">
+							<span class="medium-text">Stats</span><br/>
+							<span class="bold">Species:</span> {{ pet.animal }}<br/>
+							<span class="bold">Breed:</span> {{ pet.breed }}<br/>
+							<span class="bold">Age:</span> {{ pet.age }}<br/>
+						</div>
+						<div class="small-text gray-text">
+							<span class="medium-text">Caregivers</span><br/>
+							{% for c in pet.caregivers.all %}
+								<img src="/media/{{ c.icon }}" class="round small-image image-border" />
+							{% endfor %}
+						</div>
+						<div id="friends" class="icon-list">
+							<span class="medium-text">Friends</span><br/>
+							{% for f in pet.friends.all %}
+								<a href="{% url 'pet' pk=f.pk %}">
+									<img src="/media/{{ f.icon }}" class="round small-image image-border" />
+								</a>
+							{% endfor %}
+						</div>
+					</div>
+					<div class="mainbar small-text light-background">
+						<span class="medium-text">About Me</span><br/>
+						{{ pet.about }}<br/><br/>
+						<span class="medium-text">Likes</span><br/>
+						{{ pet.likes }}<br/><br/>
+						<span class="medium-text">Dislikes</span><br/>
+						{{ pet.dislikes }}<br/><br/>
+						<span class="medium-text">Vet's Notes</span><br/>
+						{{ pet.health_notes }}<br/><br/>
+						<span class="medium-text">Last Seen At</span><br/>
+						 <div id="map"></div>
+					</div>
 				</div>
-				<div id="friends" class="icon-list">
-					<span class="section-title">Friends</span><br/>
-					{% for f in pet.friends.all %}
-						<a href="{% url 'pet' pk=f.pk %}">
-							<img src="/media/{{ f.icon }}" class="round small-icon" />
-						</a>
-					{% endfor %}
-				</div>
-			</div>
-			<div id="main">
-				<span class="section-title">About Me</span><br/>
-				{{ pet.about }}<br/><br/>
-				<span class="section-title">Likes</span><br/>
-				{{ pet.likes }}<br/><br/>
-				<span class="section-title">Dislikes</span><br/>
-				{{ pet.dislikes }}<br/><br/>
-				<span class="section-title">Last Seen At</span><br/>
-				 <div id="map"></div>
 			</div>
 		</div>
 	</div>
-
 	<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
 	<script>
-		var map = L.map('map').setView([33.8059, -84.1454], 15);
+		var map = L.map('map').setView([33.7925, -84.3963], 15);
 		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-		    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
 		    maxZoom: 18,
-		    id: 'mapbox.run-bike-hike',
+		    id: 'mapbox.emerald',
 		    accessToken: 'pk.eyJ1IjoiaGFsZnNub3ciLCJhIjoiY2lobTBsM3N5MG85a3Zma2xsdjFyem55bSJ9.KGfwot8kPl6UxMCB-xULxw'
 		}).addTo(map);
-		var marker = L.marker([33.8059, -84.1454]).addTo(map);
+		var marker = L.marker([33.7925, -84.3963]).addTo(map);
 	</script>
 </body>

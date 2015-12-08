@@ -1,6 +1,0 @@
-<form action="{% url 'edit-detail' pk=id %}" method="post">
-	{% csrf_token %}
-	{{ form }}
-	<input type="submit" value="edit_detail" />
-</form>
-<a href="{% url 'pet' pk=id %}">Go back</a>

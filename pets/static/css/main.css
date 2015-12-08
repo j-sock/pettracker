@@ -67,10 +67,10 @@
 }
 
 body {
-	background-image: url("../images/ptbackground.png");
+	background-image: url("../images/dogparkbg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
     background-position: center;
-	font-family: 'stellar';
-	font-size: 1em;
 }
 img {
     max-width: 100%;
@@ -88,10 +88,130 @@ a {
 	border-radius: 50%;
 }
 
-.big-text {
-	font-size: 12em;
+.center-text {
+    text-align: center;
 }
 
-.medium-text {
-	font-size: 2em;
+.light-background {
+    background-color: rgba(255, 255, 255, 0.75)
 }
+
+#logout {
+    position: fixed;
+    top: 1vh;
+    right: 2vh;
+    color: #444;
+    text-align: right;
+}
+
+/* default/small screen */
+
+/* text size */
+.giant-text {
+    font-family: homizio, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 15vw;
+}
+.big-text {
+    font-family: homizio, Arial, sans-serif;
+    font-weight: normal;
+    font-size: 10vw;
+}
+.medium-text {
+    font-family: 'stellar', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 8vw;
+}
+.small-text {
+    font-family: 'stellar', Arial, sans-serif;
+    font-weight: normal;
+    font-size: 5vw;
+}
+
+/* text color */
+.white-text {
+    color: #fff;
+}
+.gray-text {
+    color: #444;
+}
+.pink-text {
+    color: #EA9999;
+}
+
+/* text border */
+.text-border {
+    text-shadow:  2px  0px 0 #fff,
+                  2px  2px 0 #fff,
+                  0px  2px 0 #fff,
+                 -2px  2px 0 #fff,
+                 -2px  0px 0 #fff;
+}
+
+/* image size */
+.big-image {
+    width: 32vh;
+    height: 32vh;
+    margin: 5vh;
+}
+.medium-image {
+    width: 16vh;
+    margin: 2vh;
+}
+.small-image {
+    width: 8vh;
+    margin: 1vh;
+}
+
+/* image border */
+.image-border {
+    border-width: 2px;
+    border-style: hidden solid solid solid;
+    border-color: #fff;
+}
+.image-border:active {
+    border-width: 2px;
+    border-style: solid solid hidden solid;
+    border-color: #666 #888 #888 #888;
+}
+
+/* big wide screen */
+@media all and (orientation: landscape) {
+    /* text size */
+    .giant-text {
+        font-family: homizio, Arial, sans-serif;
+        font-weight: bold;
+    	font-size: 10vw;
+    }
+    .big-text {
+        font-family: homizio, Arial, sans-serif;
+        font-weight: normal;
+        font-size: 4vw;
+    }
+    .medium-text {
+        font-family: 'stellar', Arial, sans-serif;
+        font-weight: bold;
+        font-size: 2vw;
+    }
+    .small-text {
+        font-family: 'stellar', Arial, sans-serif;
+        font-weight: normal;
+        font-size: 1vw;
+    }
+
+    /* image size */
+    .big-image {
+        width: 15vw;
+        height: auto;
+        margin: 0;
+    }
+    .medium-image {
+        width: 5vw;
+        margin: 2vw;
+    }
+    .small-image {
+        width: 3vw;
+        margin: 0;
+    }
+}
+

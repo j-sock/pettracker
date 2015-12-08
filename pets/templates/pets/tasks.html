@@ -1,17 +1,95 @@
 {% load staticfiles %}
+<head>
+	<link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}"></link>
+	<link rel="stylesheet" type="text/css" href="{% static "css/home.css" %}"></link>
+	<link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}"></link>
+	<style>
+		.tasks {
+			padding: 1vw;
+			width: 30vw;
+		}
+		.task {
+			display: -webkit-flex;
+		    display: flex;
+			flex-flow: row;
+			-webkit-flex-flow: row;
+			justify-content: flex-start;
+			-webkit-justify-content: flex-start;
+			align-content: stretch;
+			-webkit-align-content: stretch;
+			align-items: center;
+			-webkit-align-items: center;
+		}
+		.task>#name {
+			margin-left: 1vh;
+			flex-grow: 2;
+		}
+		.task>#checker {
+			margin-right: 1vh;
+		}
+	</style>
+</head>
 
-{% for t in tasks %}
-	<input type="checkbox" id="check" value="{{ t.pk }}" onclick="toggleDone(this);" {% if t.done %}checked{% endif %}> {{ t.name }}
-	<a href="{% url 'edit-task' pk=t.id %}"> edit</a>
-	<a href=""> delete</a>
-	<br />
-{% endfor %}
-
-<br />
-<img src="{% static "images/test.png" %}" />
-<p>
-	<a href="{% url 'add-task' %}">Add a new task</a>
-</p>
-
-<script type="text/javascript" src="{% static "javascript/jquery-min.js" %}"></script>
-<script type="text/javascript" src="{% static "javascript/main.js" %}"></script>
+<body>
+	<div class="size">
+		<div class="background">
+			<div id="logout" class="small-text">
+				<a href="{% url 'tasks' %}"> view tasks</a><br/>
+				<a href="{% url 'logout' %}">logout </a><br/>
+				<a href="{% url 'index' %}">home </a>
+			</div>
+			<div class="wrapper">
+				<div class="title">
+					<div class="giant-text pink-text text-border">Tasks</div>
+				</div>
+				<div class="tasks small-text light-background">
+					{% for task in tasks %}
+						<div class="task task-{{ task.id }}">
+							<div id="checker" {% if task.done %}class="checked"{% endif %} onclick="toggleDone({{ task.id }});">
+								{% if task.done %}
+									<i class="fa fa-check-square-o"></i>
+								{% else %}
+									<i class="fa fa-square-o"></i>
+								{% endif %}
+							</div>
+							<div>
+								<a href="{% url 'pet' pk=task.pet.pk %}">
+									<img src="/media/{{ task.pet.icon }}" class="small-image image-border round"/>
+								</a>
+							</div>
+							<div id="name">
+								{{ task.name }}
+							</div>
+							<div>
+								<a href="{% url 'edit-task' pk=task.id %}"> <i class="fa fa-pencil-square-o"></i></a>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="{% static "javascript/jquery-min.js" %}"></script>
+	<script>
+		function toggleDone(task_id) {
+			var checker = $(".task-" + task_id + ">div#checker");
+			var task_checked = checker.hasClass('checked');
+			console.log(task_checked);
+			$.ajax({
+				url: '/tasks/' + task_id + '/check/',
+				type: 'POST',
+				data: { done: !task_checked },
+				success: function(json) {
+					console.log(json);
+					var checker_icon = $(".task-" + task_id + ">div>i");
+					checker.toggleClass('checked');
+					checker_icon.toggleClass('fa-check-square-o');
+					checker_icon.toggleClass('fa-square-o');
+				},
+				error: function(xhr, errmsg, err) {
+					console.log(xhr.status + ": " + xhr.responseText);
+				}
+			});
+		}
+	</script>
+</body>

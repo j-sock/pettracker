@@ -1,6 +1,47 @@
-<form action="{% url 'edit-task' pk=id %}" method="post">
-	{% csrf_token %}
-	{{ form }}
-	<input type="submit" value="edit_task" />
-</form>
-<a href="{% url 'tasks' pk=pet_id %}">Go back</a>
+
+
+{% load staticfiles %}
+<head>
+	<link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}"></link>
+	<link rel="stylesheet" type="text/css" href="{% static "css/home.css" %}"></link>
+	<link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}"></link>
+	<style>
+		form {
+			display: flex;
+			display: -webkit-flex;
+			flex-flow: column;
+			-webkit-flex-flow: column;
+			justify-content: center;
+			-webkit-justify-content: center;
+		}
+		form>input, form>select {
+			font-family: 'stellar', Arial, sans-serif;
+	        font-weight: normal;
+	        font-size: 1vw;
+	        color: #EA9999;
+
+			border: 2px solid #444;
+			padding: 2% 0 2% 0;
+			background-color: rgba(255, 255, 255, 0.85);
+		}
+	</style>
+</head>
+
+<body>
+	<div class="size">
+		<div class="background">
+			<div class="wrapper">
+				<div class="title">
+					<div class="giant-text pink-text text-border">Edit</div>
+				</div>
+				<div class="form medium-text center-text white-text">
+					<form action="{% url 'edit-task' pk=id %}" method="post">
+						{% csrf_token %}
+						{{ form }}
+						<input type="submit" value="Finish" class="button small-text" />
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>

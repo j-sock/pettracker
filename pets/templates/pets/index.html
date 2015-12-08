@@ -1,43 +1,36 @@
 {% load staticfiles %}
 <head>
 	<link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}"></link>
-	<link rel="stylesheet" type="text/css" href="{% static "css/landing.css" %}"></link>
+	<link rel="stylesheet" type="text/css" href="{% static "css/home.css" %}"></link>
 	<link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}"></link>
 </head>
 
 <body>
-	<div id="welcome" class="big-text">Welcome, User</div>
-	<div id="tasks" class="medium-text">
-		<div id="task-title">
-			to-do list is below :O
-		</div>
-		{% for t in tasks %}
-			<div id="task">
-				<a href="{% url 'pet' pk=t.pet.pk %}">
-					<img src="media/{{ t.pet.icon }}" class="round" />
-				</a>
-				<div id="task-text">
-					{{ t.name }}
-					<div id="task-options">
-						{% if t.done %}
-							<i class="fa fa-check-square-o" onclick="toggleDone(this);" ></i>
-						{% else %}
-							<i class="fa fa-square-o" onclick="toggleDone(this);"></i>
-						{% endif %}
-						<a href="{% url 'edit-task' pk=t.id %}"> 
-							<i class="fa fa-pencil-square-o"></i>
-						</a>
-					</div>
+	
+	<div class="size">
+		<div class="background">
+			<div id="logout" class="small-text">
+				<a href="{% url 'tasks' %}"> view tasks</a><br/>
+				<a href="{% url 'logout' %}">logout </a><br/>
+				<a href="{% url 'index' %}">home </a>
+			</div>
+			<div class="wrapper">
+				<div class="giant-text pink-text center-text text-border">
+					Welcome, {{ user.name }}
+				</div>
+				<div class="big-text center-text pets">
+					{% for pet in pets %}
+						<div>
+							<a href="{% url 'pet' pk=pet.pk %}">
+								<img src="media/{{ pet.icon }}" class="medium-image image-border round" />
+							</a>
+						</div>
+					{% endfor %}
+				</div>
+				<div class="big-text center-text">
+					<a href="{% url 'tasks' %}" class="button">View Tasks</a>
 				</div>
 			</div>
-		{% endfor %}
-		<div id="more-tasks" onclick="console.log('load more tasks');">
-			View more tasks
 		</div>
-	</div>
-	<div style="clear: both;">
-		<a href="{% url 'list-pets' %}">View pets</a><br />
-		<a href="">View tasks</a><br />
-		<a href="">Settings (we're going in too deep!)</a>
 	</div>
 </body>

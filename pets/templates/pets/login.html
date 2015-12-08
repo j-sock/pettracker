@@ -1,0 +1,28 @@
+{% load staticfiles %}
+<head>
+	<link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}"></link>
+	<link rel="stylesheet" type="text/css" href="{% static "css/home.css" %}"></link>
+	<link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}"></link>
+</head>
+
+<body>
+	
+	<div class="size">
+		<div class="background">
+			<div class="wrapper">
+				<div class="title">
+					<div class="giant-text pink-text text-border">Log In</div>
+				</div>
+				<div class="form medium-text center-text">
+					<form action="{% url 'login' %}" method="post">
+						<span class="white-text">Username</span><br/>
+						<input type="text" class="small-text center-text" name="username"/><br/>
+						<span class="white-text">Password</span><br/>
+						<input type="password" class="small-text center-text" name="password"/><br/>
+						<input type="submit" value="login" class="button small-text" />
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
